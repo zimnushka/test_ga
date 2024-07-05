@@ -46,14 +46,14 @@ class MyHomePage extends StatelessWidget {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          ...stringList
-                              .map((e) => Center(
-                                    child: Text(
-                                      e,
-                                      style: const TextStyle(color: Colors.black),
-                                    ),
-                                  ))
-                              .toList(),
+                          ...stringList.map(
+                            (e) => Center(
+                              child: Text(
+                                e,
+                                style: const TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ],

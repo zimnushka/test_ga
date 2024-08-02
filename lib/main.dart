@@ -10,14 +10,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Test',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(),
-    );
+    return const MaterialApp(home: MyHomePage());
   }
 }
 
@@ -82,6 +75,7 @@ class MyHomePage extends StatelessWidget {
               tooltip: 'Add',
               child: const Icon(Icons.add),
             ),
+            const SizedBox(height: 10),
             FloatingActionButton(
               onPressed: () {
                 //TODO3 данная кнопка должна удалять элементы из списка
@@ -110,7 +104,7 @@ class MainProvider extends ChangeNotifier {
   }
 
   //TODO4
-  //Дан массив данных размером N [13, 12, 15, 11, 9. 12, 16]
+  //Дан массив данных размером N [13, 12, 15, 11, 9, 12, 16]
   //Это температура за каждый день
   //Нужно для каждого элемента массива найти колво дней до наступления более теплого дня
   //Очистить mainList и вывести вместо текстовых чисел пары чисел Температура - Количество днея до более теплого дня в виде Row.

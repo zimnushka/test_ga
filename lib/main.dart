@@ -22,45 +22,38 @@ class MyHomePage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (BuildContext context) => MainProvider(),
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Тест'),
-        ),
         body: Builder(builder: (context) {
           final stringList = context.select((MainProvider mainProvider) => mainProvider.mainList);
           return Column(
             children: [
-              TextButton(
-                onPressed: context.read<MainProvider>().addStrings,
-                child: const Text('Добавить'),
-              ),
               Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          ...stringList.map(
-                            (e) => Center(
-                              child: Text(
-                                e,
-                                style: const TextStyle(color: Colors.black),
-                              ),
-                            ),
-                          ),
-                        ],
+                  child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: stringList.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                    child: SizedBox(
+                      width: 100,
+                      child: Text(
+                        stringList.elementAt(index),
+                        style: const TextStyle(color: Colors.black),
                       ),
-                    ],
+                    ),
+                  );
+                },
+              )),
+              Expanded(
+                  child: DecoratedBox(
+                decoration: const BoxDecoration(color: Colors.grey, borderRadius: BorderRadiusDirectional.vertical(top: Radius.circular(30))),
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: List.generate(100, (index) => Text('$index, text loooooong ${index * index * index * index}')),
                   ),
                 ),
-              ),
-              //TODO5 при заполнении экрана данный виджет должен становиться последним в списке и уезжать за экран
-              const Center(
-                child: Text(
-                  'Динамичный виджет',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
+              )),
             ],
           );
         }),
@@ -74,14 +67,6 @@ class MyHomePage extends StatelessWidget {
               },
               tooltip: 'Add',
               child: const Icon(Icons.add),
-            ),
-            const SizedBox(height: 10),
-            FloatingActionButton(
-              onPressed: () {
-                //TODO3 данная кнопка должна удалять элементы из списка
-              },
-              tooltip: 'Remove',
-              child: const Icon(Icons.remove),
             ),
           ],
         ),
@@ -97,10 +82,6 @@ class MainProvider extends ChangeNotifier {
     //TODO1 сделать, чтобы работало добавление
     mainList.addAll(List<String>.from(['1', '2', '3', '4', '5']));
     notifyListeners();
-  }
-
-  void removeString() {
-    //TODO2 убирать 2 последних строки
   }
 
   //TODO4
